@@ -62,6 +62,50 @@ sub no_old_shit
       exit;
     }
   }
+  else
+  {
+    if(-f '/etc/os-release')
+    {
+      my $name;
+      my $version;
+      my $id;
+      open(IN, '</etc/os-release');
+      while(<IN>)
+      {
+        warn "_ = $_";
+        $name = $1    if /^NAME=(.*)/;
+        $name = $1    if /^NAME="(.*)"/;
+        $version = $1 if /^VERSION="(.*)"/;
+        $id = $1      if /^ID=(.*)/;
+      }
+      close IN;
+
+      # TODO: CentOS, Ubuntu, FreeBSD, NetBSD, etc
+
+      if(defined $id && $id eq 'debian')
+      {
+        if(defined $version && $version =~ /^([0-9]+)/)
+        {
+          if($1 < 8)
+          {
+            print "Debian 7 (Wheezy) and earlier are not supported\n";
+            exit;
+          }
+        }
+      }
+      elsif(defined $id && $id eq 'fedora')
+      {
+        if(defined $version && $version =~ /^([0-9]+)/)
+        {
+          if($1 < 30)
+          {
+            print "Fedora 29 and earlier are not supported\n";
+            exit;
+          }
+        }
+      }
+    }
+  }
 }
 
 sub import
