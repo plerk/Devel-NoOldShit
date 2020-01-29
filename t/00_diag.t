@@ -1,7 +1,7 @@
-use Test2::V0 -no_srand => 1;
+use strict;
+use warnings;
 use Config;
-
-eval { require 'Test/More.pm' };
+use Test::More tests => 1;
 
 # This .t file is generated.
 # make changes instead to dist.ini
@@ -11,7 +11,6 @@ my $post_diag;
 
 $modules{$_} = $_ for qw(
   ExtUtils::MakeMaker
-  Test2::V0
 );
 
 
@@ -58,7 +57,7 @@ if(@keys > 0)
 
 diag sprintf $format, 'perl ', $];
 
-foreach my $module (sort @modules)
+foreach my $module (@modules)
 {
   my $pm = "$module.pm";
   $pm =~ s{::}{/}g;
@@ -81,6 +80,4 @@ if($post_diag)
 }
 
 spacer;
-
-done_testing;
 

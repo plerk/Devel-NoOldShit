@@ -25,6 +25,8 @@ from Windows XP which was EOLed in 2014.
 
 The set of platforms that is not supported may expand as necessary.
 
+This module has no non-core dependencies starting with Perl 5.6.0.
+
 # FUNCTIONS
 
 ## no\_old\_shit
